@@ -1,7 +1,6 @@
 from typing import Any, List
 from bs4 import BeautifulSoup
-
-from .models import Record
+from vezilka_schemas import Record
 
 
 class Parser:

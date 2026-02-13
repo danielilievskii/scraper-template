@@ -1,8 +1,7 @@
 import logging
-from typing import Iterable, List, Set, Dict, Any
+from typing import List, Set, Dict, Any
 from abc import ABC, abstractmethod
-
-from scraper import Record
+from vezilka_schemas import Record
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +15,7 @@ class BaseStore(ABC):
         pass
 
     @abstractmethod
-    def save_records(self, records: Iterable[Record]) -> None:
+    def save_records(self, records: List[Record]) -> None:
         """Save a collection of scraped records to the store."""
         pass
 

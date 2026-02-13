@@ -1,10 +1,10 @@
 import json
 import logging
 from pathlib import Path
-from typing import Iterable, List, Dict, Any, Set
+from typing import List, Dict, Any, Set
+from vezilka_schemas import Record
 
 from .base_store import BaseStore
-from scraper import Record
 
 logger = logging.getLogger(__name__)
 
@@ -32,16 +32,14 @@ class JSONFileStore(BaseStore):
             logger.warning("File %s is empty or corrupted. Returning empty list.", self.records_file_path)
             return []
 
-    def save_records(self, records: Iterable[Record]) -> None:
+    def save_records(self, records: List[Record]) -> None:
         """Append new records to the JSON file and update seen IDs."""
 
-        records_list = list(records)
-
-        if not records_list:
+        if not records:
             logger.info("No records to save")
             return
 
-        records_dicts = [record.to_dict() for record in records_list]
+        records_dicts = [record.to_dict() for record in records]
 
         existing_records = self.load_all_records()
         existing_records.extend(records_dicts)
@@ -49,9 +47,9 @@ class JSONFileStore(BaseStore):
         with self.records_file_path.open("w", encoding="utf-8") as f:
             json.dump(existing_records, f, indent=2, ensure_ascii=False)
 
-        logger.info("Saved %d new records (total: %d)", len(records_list), len(existing_records))
+        logger.info("Saved %d new records (total: %d)", len(records), len(existing_records))
 
-        new_ids = {record.id for record in records_list}
+        new_ids = {record.id for record in records}
         self.save_seen_ids(new_ids)
 
     def load_seen_ids(self) -> Set[str]:

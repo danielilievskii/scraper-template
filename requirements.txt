@@ -2,3 +2,4 @@ beautifulsoup4>=4.12.0
 aiohttp>=3.9.0
 pydantic
 pydantic_settings
+vezilka-schemas==0.1.5

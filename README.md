@@ -27,7 +27,6 @@ scraper-template/
 │   ├── fetcher.py       # Fetcher - template class for fetching data
 │   ├── parser.py        # Parser - template class for parsing data
 │   ├── scraper.py       # Scraper - main scraper orchestration
-│   ├── models.py        # Record data model
 ├── store/
 │   ├── base_store.py    # Base Storage class
 │   ├── factory.py       # Store factory for dynamic backend selection
@@ -122,22 +121,6 @@ The `run()` method performs:
 3. Fetch raw data (skipping seen IDs)
 4. Parse data
 5. Save only new data
-
-## Record Model
-
-Scraped items are represented as Record objects with the following structure:
-
-```python
-{
-    "id": "unique-identifier",        # Required: unique ID
-    "title": "Record Title",         # Required
-    "site_url": "https://site.com",   # Required: base site URL
-    "page_url": "https://site.com/article",  # Required: full record URL
-    "content": "Record content",     # Optional
-    "published_at": "2024-01-01",     # Optional: ISO format datetime
-    "categories": ["News", "Tech"]    # Optional
-}
-```
 
 ## Utilities
 
